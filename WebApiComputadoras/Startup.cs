@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using System.Text.Json.Serialization;
 using WebApiComputadoras.Filtros;
+using WebApiComputadoras.Services;
 
 namespace WebApiComputadoras
 {
@@ -25,6 +26,8 @@ namespace WebApiComputadoras
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             services.AddDbContext<ApplicationDbContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("defaultConnection")));
+
+            services.AddHostedService<ProfeGustavoGOD>();
 
             services.AddResponseCaching();
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer();

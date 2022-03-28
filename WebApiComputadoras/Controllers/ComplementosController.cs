@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using WebApiComputadoras.Entitys;
 
+
 namespace WebApiComputadoras.Controllers
 {
     [ApiController]
@@ -29,13 +30,6 @@ namespace WebApiComputadoras.Controllers
         [HttpPost]
         public async Task<ActionResult> Post(Complementos complementos)
         {
-            /*var existeComputadora = await dbContext.Computadoras.AnyAsync(x => x.Id == complementos.ComputadorasId);
-
-            if (!existeComputadora)
-            {
-                return BadRequest($"No existe la computadora con el ID: {complementos.ComputadorasId}");
-            }*/
-
             dbContext.Add(complementos);
             await dbContext.SaveChangesAsync();
             return Ok();

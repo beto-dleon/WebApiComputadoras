@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using WebApiComputadoras.DTOs;
 using WebApiComputadoras.Entitys;
+using WebApiComputadoras.Services;
 
 namespace WebApiComputadoras.Controllers
 {
@@ -46,6 +47,12 @@ namespace WebApiComputadoras.Controllers
         {
             var compu = await dbContext.Computadoras.Where(alumnoBD => alumnoBD.Marca.Contains(marca)).ToListAsync();
 
+            EscribirArchivos ea = new EscribirArchivos();
+            foreach(var computadoras in compu)
+            {
+                ea.DoWork_Get(computadoras.Marca);
+            }
+
             return mapper.Map<List<GetComputadorasDTO>>(compu);
 
         }
@@ -65,6 +72,10 @@ namespace WebApiComputadoras.Controllers
 
             dbContext.Add(compu);
             await dbContext.SaveChangesAsync();
+
+            EscribirArchivos ea = new EscribirArchivos();
+            ea.DoWork_Post(compuDto.Marca);
+
             return Ok();
         }
 
